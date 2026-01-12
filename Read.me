@@ -1,0 +1,116 @@
+CAPSTONE CI/CD Docker Project
+
+Project Overview
+
+This project demonstrates a **full CI/CD workflow** for a simple 2-tier web application using **Docker** and **GitHub Actions**.  
+It includes:
+
+- Backend: Flask API with database connectivity  
+- Frontend: Static HTML/JS served via Nginx  
+- Database: PostgreSQL  
+- CI/CD Pipeline: Build, test, scan, push Docker images, deploy to staging  
+
+The goal is to create a **reproducible, containerized environment** that can be deployed anywhere.
+
+---
+
+ Features
+
+- Multi-stage Docker builds to optimize image size  
+- Non-root containers for security  
+- Local development using `docker-compose`  
+- Automated CI/CD pipeline with GitHub Actions  
+- Deployment scripts for staging environments  
+- Trivy container security scan (optional)  
+
+---
+ Folder Structure
+
+cicd-docker-project/
+│
+├── backend/ # Flask backend
+├── frontend/ # Static frontend served via Nginx
+├── database/ # DB initialization and migrations
+├── docker-compose.yml # Local development stack
+├── docker-compose.staging.yml # Staging stack
+├── scripts/ # Deployment and maintenance scripts
+├── .github/workflows/ # GitHub Actions CI/CD pipeline
+├── docs/ # Architecture, runbook, and diagrams
+├── jenkins/ # Optional Jenkins pipeline
+├── .env.staging # Staging environment variables
+└── README.md
+
+---
+
+Prerequisites
+
+- Docker & Docker Compose installed  
+- Git  
+- GitHub account  
+- Docker Hub account  
+
+---
+
+ Local Development Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/bharu1520-jpg/CAPSTONE-PROJECT.git
+cd CAPSTONE-PROJECT
+docker-compose up -d --build
+docker-compose up -d --build
+
+docker-compose down
+
+
+docker-compose down
+Backend API Endpoints
+Endpoint	Method	Description
+/	GET	Health check / Home
+/api/users	GET	List of demo users
+/health	GET	Returns OK for monitoring
+
+GitHub Actions CI/CD
+
+The workflow builds Docker images, pushes to Docker Hub, and deploys to a staging environment via SSH.
+
+Steps:
+
+Checkout code
+
+Set up Docker Buildx
+
+Login to Docker Hub using secrets:
+
+DOCKERHUB_USERNAME
+
+DOCKERHUB_TOKEN (with read & write permissions)
+
+Build backend & frontend images
+
+Push images to Docker Hub
+
+Deploy to staging server (via SSH using secrets: STAGING_HOST, STAGING_USER, STAGING_SSH_KEY)
+
+Deployment Scripts
+
+deploy-staging.sh — Pull latest images and restart containers
+
+rollback.sh — Rollback to previous container version
+
+db-migrate.sh — Run database migrations
+
+cleanup.sh — Remove old containers and images
+
+Environment Variables
+
+.env.staging contains staging-specific environment variables
+
+Backend reads:
+
+DB_HOST=database
+DB_NAME=appdb
+DB_USER=appuser
+DB_PASSWORD=password
+PORT=5000
