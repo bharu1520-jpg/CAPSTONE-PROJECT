@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CI/CD Demo</title>
+</head>
+<body>
+  <h1>CI/CD Docker Project</h1>
+  <button onclick="loadUsers()">Load Users</button>
+  <ul id="users"></ul>
+
+  <script>
+    function loadUsers() {
+      fetch("/api/users")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("users").innerHTML =
+            data.map(u => `<li>${u.name}</li>`).join("");
+        })
+        .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>

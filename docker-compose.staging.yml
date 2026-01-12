@@ -1,0 +1,6 @@
+services:
+  backend:
+    image: yourdockerhub/backend:latest
+
+  frontend:
+    image: yourdockerhub/frontend:latest
